@@ -3,7 +3,13 @@ RecyclerView用多层级TreeView，如果层级比较少推荐使用[Brvah](http
 
 ![image](https://github.com/pye52/TreeView/blob/master/treeviewGif.gif)
 
-适用Json结构
+引入：
+
+```groovy
+compile 'com.kanade:treeadapter:0.1.0'
+```
+
+Json例子结构
 
 ```json
 [
@@ -69,8 +75,6 @@ RecyclerView用多层级TreeView，如果层级比较少推荐使用[Brvah](http
     }
 ]
 ```
-
-
 
 使用：
 
