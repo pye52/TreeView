@@ -11,7 +11,7 @@ def gitUrl = 'https://github.com/pye52/TreeView.git' // project git
 group = "com.kanade"
 //发布到JCenter上的项目名字，必须填写
 def libName = "treeview"
-version = "0.1.1"
+version = "0.1.2"
 
 android {
     compileSdkVersion 25
