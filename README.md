@@ -6,7 +6,16 @@ RecyclerView用多层级TreeView，如果层级比较少推荐使用[Brvah](http
 引入：
 
 ```groovy
-compile 'com.kanade:treeadapter:0.2.0'
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+
+dependencies {
+	compile 'com.github.pye52:TreeView:0.2.0'
+}
 ```
 
 Json例子结构
