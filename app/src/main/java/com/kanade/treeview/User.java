@@ -5,9 +5,16 @@ import com.kanade.treeadapter.RvTree;
 public class User implements RvTree {
     private int id;
     private int pid;
-    private int level;
     private String title;
     private int resId;
+
+    public User(){}
+
+    public User(int id, int pid, String title) {
+        this.id = id;
+        this.pid = pid;
+        this.title = title;
+    }
 
     @Override
     public int getId() {
@@ -25,15 +32,6 @@ public class User implements RvTree {
 
     public void setPid(int pid) {
         this.pid = pid;
-    }
-
-    @Override
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     @Override
