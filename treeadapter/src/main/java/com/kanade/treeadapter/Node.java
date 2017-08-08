@@ -3,7 +3,7 @@ package com.kanade.treeadapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public class Node<T> {
 
     private int id;
     /**
@@ -13,10 +13,7 @@ public class Node {
 
     private String name;
 
-    /**
-     * 当前的级别
-     */
-    private int level;
+    private T item;
 
     /**
      * 是否展开
@@ -28,7 +25,7 @@ public class Node {
     /**
      * 下一级的子Node
      */
-    private List<Node> children = new ArrayList<>();
+    private List<Node<T>> children = new ArrayList<>();
 
     /**
      * 父Node
@@ -61,6 +58,14 @@ public class Node {
         this.pId = pId;
     }
 
+    public T getItem() {
+        return item;
+    }
+
+    public void setItem(T item) {
+        this.item = item;
+    }
+
     public String getName() {
         return name;
     }
@@ -69,19 +74,15 @@ public class Node {
         this.name = name;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public boolean isExpand() {
         return isExpand;
     }
 
-    public List<Node> getChildren() {
+    public List<Node<T>> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Node> children) {
+    public void setChildren(List<Node<T>> children) {
         this.children = children;
     }
 
@@ -103,8 +104,6 @@ public class Node {
 
     /**
      * 是否为根节点
-     *
-     * @return
      */
     public boolean isRoot() {
         return parent == null;
@@ -112,19 +111,13 @@ public class Node {
 
     /**
      * 判断父节点是否展开
-     *
-     * @return
      */
     public boolean isParentExpand() {
-        if (parent == null)
-            return false;
-        return parent.isExpand();
+        return parent != null && parent.isExpand();
     }
 
     /**
      * 是否是叶子界点
-     *
-     * @return
      */
     public boolean isLeaf() {
         return children.size() == 0;
@@ -139,8 +132,6 @@ public class Node {
 
     /**
      * 设置展开
-     *
-     * @param isExpand
      */
     public void setExpand(boolean isExpand) {
         this.isExpand = isExpand;
