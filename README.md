@@ -6,7 +6,7 @@ RecyclerView用多层级TreeView，如果层级比较少推荐使用[Brvah](http
 引入：
 
 ```groovy
-compile 'com.kanade:treeadapter:0.1.3'
+compile 'com.kanade:treeadapter:0.2.0'
 ```
 
 Json例子结构
@@ -16,61 +16,51 @@ Json例子结构
     {
         "id": 1,
         "title": "A1",
-        "level": 1,
         "pid": 0
     },
     {
         "id": 2,
         "title": "B1",
-        "level": 2,
         "pid": 1
     },
     {
         "id": 3,
         "title": "C1",
-        "level": 3,
         "pid": 2
     },
     {
         "id": 4,
         "title": "C2",
-        "level": 3,
         "pid": 2
     },
     {
         "id": 5,
         "title": "C3",
-        "level": 3,
         "pid": 2
     },
     {
         "id": 6,
         "title": "B2",
-        "level": 2,
         "pid": 1
     },
     {
         "id": 7,
         "title": "C4",
-        "level": 3,
         "pid": 6
     },
     {
         "id": 8,
         "title": "C5",
-        "level": 3,
         "pid": 6
     },
     {
         "id": 9,
         "title": "D1",
-        "level": 4,
         "pid": 5
     },
     {
         "id": 10,
         "title": "E1",
-        "level": 5,
         "pid": 9
     }
 ]
@@ -90,5 +80,20 @@ TreeAdapter<User> adapter = new TreeAdapter<>(this);
 // 若不在初始化时指定数据，则会等到执行setNodes时才会有数据
 adapter.setNodes(list);
 recyclerview.setAdapter(adapter);
+
+ final List<User> C1Childs = new ArrayList<>();
+ C1Childs.add(new User(11, 3, "C11"));
+ C1Childs.add(new User(12, 3, "C12"));
+ C1Childs.add(new User(13, 3, "C13"));
+ adapter.setListener(new TreeItemClickListener() {
+     @Override
+     public void OnClick(Node node) {
+         if (node.getId() == 3) {
+             // 向id为3的节点下面添加数据并展开
+             adapter.addChildrenById(3, C1Childs);
+         }
+         Toast.makeText(MainActivity.this, node.getName(), Toast.LENGTH_SHORT).show();
+     }
+ });
 ```
 
