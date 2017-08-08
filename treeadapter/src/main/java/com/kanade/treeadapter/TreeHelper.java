@@ -15,15 +15,15 @@ public class TreeHelper {
      * @param defaultExpandLevel 默认展开层级
      * @return node数组
      */
-    public static <T extends RvTree> List<Node> getSortedNodes(List<T> datas, int defaultExpandLevel) {
-        List<Node> result = new ArrayList<>();
+    public static <T extends RvTree> List<Node<T>> getSortedNodes(List<T> datas, int defaultExpandLevel) {
+        List<Node<T>> result = new ArrayList<>();
         // 将用户数据转化为List<Node>以及设置Node间关系(父子关系)
-        List<Node> nodes = convertData2Node(datas);
+        List<Node<T>> nodes = convertData2Node(datas);
         // 拿到根节点
-        List<Node> rootNodes = getRootNodes(nodes);
+        List<Node<T>> rootNodes = getRootNodes(nodes);
 
         // 排序
-        for (Node node : rootNodes) {
+        for (Node<T> node : rootNodes) {
             addNode(result, node, defaultExpandLevel, 1);
         }
         return result;
@@ -31,13 +31,11 @@ public class TreeHelper {
 
     /**
      * 过滤出所有可见的Node
-     * @param nodes
-     * @return
      */
-    public static List<Node> filterVisibleNode(List<Node> nodes) {
-        List<Node> result = new ArrayList<>();
+    public static <T extends RvTree>List<Node<T>> filterVisibleNode(List<Node<T>> nodes) {
+        List<Node<T>> result = new ArrayList<>();
 
-        for (Node node : nodes) {
+        for (Node<T> node : nodes) {
             // 如果为根节点，或者上层目录为展开状态
             if (node.isRoot() || node.isParentExpand()) {
                 result.add(node);
@@ -46,26 +44,29 @@ public class TreeHelper {
         return result;
     }
 
-    private static <T extends RvTree> List<Node> convertData2Node(List<T> datas) {
-        List<Node> list = new ArrayList<>();
+    private static <T extends RvTree> List<Node<T>> convertData2Node(List<T> datas) {
+        List<Node<T>> list = new ArrayList<>();
         for (T item : datas) {
-            Node node = new Node();
+            Node<T> node = new Node<>();
             node.setId(item.getId());
             node.setpId(item.getPid());
-            node.setLevel(item.getLevel());
             node.setName(item.getTitle());
             node.setResId(item.getImageResId());
+            node.setItem(item);
             list.add(node);
         }
-        sortNodeList(list);
+        linkNodes(list);
         return list;
     }
 
-    private static void sortNodeList(List<Node> list) {
+    /**
+     * 将子节点挂到相应的父节点之下
+     */
+    private static <T extends RvTree> void linkNodes(List<Node<T>> list) {
         for (int i = 0; i < list.size(); i++) {
-            Node n = list.get(i);
+            Node<T> n = list.get(i);
             for (int j = i + 1; j < list.size(); j++) {
-                Node m = list.get(j);
+                Node<T> m = list.get(j);
 
                 if (n.getpId() == m.getId()) {
                     m.getChildren().add(n);
@@ -82,9 +83,9 @@ public class TreeHelper {
     }
 
     // 获取根节点
-    private static List<Node> getRootNodes(List<Node> nodes) {
-        List<Node> root = new ArrayList<>();
-        for (Node node : nodes) {
+    private static <T extends RvTree> List<Node<T>> getRootNodes(List<Node<T>> nodes) {
+        List<Node<T>> root = new ArrayList<>();
+        for (Node<T> node : nodes) {
             if (node.isRoot())
                 root.add(node);
         }
@@ -94,7 +95,7 @@ public class TreeHelper {
     /**
      * 添加某节点以下的所有子节点
      */
-    private static void addNode(List<Node> nodes, Node node, int defaultExpandLeval, int currentLevel) {
+    private static <T extends RvTree> void addNode(List<Node<T>> nodes, Node<T> node, int defaultExpandLeval, int currentLevel) {
         nodes.add(node);
         if (defaultExpandLeval == currentLevel) {
             node.setExpand(true);
