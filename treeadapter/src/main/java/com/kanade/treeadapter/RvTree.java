@@ -5,8 +5,6 @@ public interface RvTree {
 
     int getPid();
 
-    int getLevel();
-
     String getTitle();
 
     int getImageResId();
