@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-	compile 'com.github.pye52:TreeView:0.2.2'
+	compile 'com.github.pye52:TreeView:0.2.3'
 }
 ```
 
@@ -86,8 +86,10 @@ Type type = new TypeToken<List<User>>(){}.getType();
 List<User> list = new Gson().fromJson(testStr, type);
 // TreeAdapter<User> adapter = new TreeAdapter<>(this, list);
 TreeAdapter<User> adapter = new TreeAdapter<>(this);
-// 若不在初始化时指定数据，则会等到执行setNodes时才会有数据
+// 若不在初始化时指定数据，则需要手动调用notifyDataSetChanged来刷新列表
 adapter.setNodes(list);
+adapter.notifyDataSetChanged();
+
 recyclerview.setAdapter(adapter);
 
  final List<User> C1Childs = new ArrayList<>();

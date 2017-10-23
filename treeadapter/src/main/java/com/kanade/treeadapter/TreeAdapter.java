@@ -64,7 +64,6 @@ public class TreeAdapter<T extends RvTree> extends RecyclerView.Adapter<TreeAdap
     public void setNodes(List<T> data) {
         List<Node<T>> allNodes = TreeHelper.getSortedNode(data, 0);
         mNodes = TreeHelper.<T>filterVisibleNode(allNodes);
-        notifyDataSetChanged();
     }
 
     /**

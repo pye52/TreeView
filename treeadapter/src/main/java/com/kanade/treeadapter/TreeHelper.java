@@ -48,7 +48,7 @@ public class TreeHelper {
         List<Node<T>> list = new ArrayList<>();
         for (T item : data) {
             Node<T> node = new Node<>();
-            node.setId(item.getId());
+            node.setId(item.getNid());
             node.setpId(item.getPid());
             node.setName(item.getTitle());
             node.setResId(item.getImageResId());

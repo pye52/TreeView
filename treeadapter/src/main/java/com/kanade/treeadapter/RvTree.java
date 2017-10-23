@@ -1,7 +1,7 @@
 package com.kanade.treeadapter;
 
 public interface RvTree {
-    long getId();
+    long getNid();
 
     long getPid();
 

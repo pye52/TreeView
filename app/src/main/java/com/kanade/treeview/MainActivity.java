@@ -82,21 +82,21 @@ public class MainActivity extends AppCompatActivity {
 
         Type type = new TypeToken<List<User>>(){}.getType();
         list = new Gson().fromJson(testStr, type);
-        rv = (RecyclerView) findViewById(R.id.rv);
+        rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         final TreeAdapter<User> adapter = new TreeAdapter<>(this);
 
-        final List<User> C1Childs = new ArrayList<>();
-        C1Childs.add(new User(11, 3, "C11"));
-        C1Childs.add(new User(12, 3, "C12"));
-        C1Childs.add(new User(13, 3, "C13"));
+        final List<User> childs = new ArrayList<>();
+        childs.add(new User(11, 3, "C11"));
+        childs.add(new User(12, 3, "C12"));
+        childs.add(new User(13, 3, "C13"));
 
         adapter.setNodes(list);
         adapter.setListener(new TreeItemClickListener() {
             @Override
             public void OnClick(Node node) {
                 if (node.getId() == 3) {
-                    adapter.addChildrenById(3, C1Childs);
+                    adapter.addChildrenById(3, childs);
                 }
                 Toast.makeText(MainActivity.this, node.getName(), Toast.LENGTH_SHORT).show();
             }

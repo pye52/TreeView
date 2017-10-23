@@ -17,7 +17,7 @@ public class User implements RvTree {
     }
 
     @Override
-    public long getId() {
+    public long getNid() {
         return id;
     }
 
