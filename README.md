@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-	compile 'com.github.pye52:TreeView:0.2.1'
+	compile 'com.github.pye52:TreeView:0.2.2'
 }
 ```
 
