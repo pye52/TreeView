@@ -11,14 +11,14 @@ import java.util.List;
 public class TreeHelper {
     /**
      * 传入要显示的数据，转化为排序后的Node数组
-     * @param datas 用户数据，数据model需要继承{@link RvTree}
+     * @param data 用户数据，数据model需要继承{@link RvTree}
      * @param defaultExpandLevel 默认展开层级
      * @return node数组
      */
-    public static <T extends RvTree> List<Node<T>> getSortedNodes(List<T> datas, int defaultExpandLevel) {
+    public static <T extends RvTree> List<Node<T>> getSortedNode(List<T> data, int defaultExpandLevel) {
         List<Node<T>> result = new ArrayList<>();
         // 将用户数据转化为List<Node>以及设置Node间关系(父子关系)
-        List<Node<T>> nodes = convertData2Node(datas);
+        List<Node<T>> nodes = convertData2Node(data);
         // 拿到根节点
         List<Node<T>> rootNodes = getRootNodes(nodes);
 
@@ -44,9 +44,9 @@ public class TreeHelper {
         return result;
     }
 
-    private static <T extends RvTree> List<Node<T>> convertData2Node(List<T> datas) {
+    private static <T extends RvTree> List<Node<T>> convertData2Node(List<T> data) {
         List<Node<T>> list = new ArrayList<>();
-        for (T item : datas) {
+        for (T item : data) {
             Node<T> node = new Node<>();
             node.setId(item.getId());
             node.setpId(item.getPid());
@@ -86,8 +86,9 @@ public class TreeHelper {
     private static <T extends RvTree> List<Node<T>> getRootNodes(List<Node<T>> nodes) {
         List<Node<T>> root = new ArrayList<>();
         for (Node<T> node : nodes) {
-            if (node.isRoot())
+            if (node.isRoot()) {
                 root.add(node);
+            }
         }
         return root;
     }

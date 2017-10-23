@@ -3,34 +3,34 @@ package com.kanade.treeview;
 import com.kanade.treeadapter.RvTree;
 
 public class User implements RvTree {
-    private int id;
-    private int pid;
+    private long id;
+    private long pid;
     private String title;
     private int resId;
 
     public User(){}
 
-    public User(int id, int pid, String title) {
+    public User(long id, long pid, String title) {
         this.id = id;
         this.pid = pid;
         this.title = title;
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Override
-    public int getPid() {
+    public long getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(long pid) {
         this.pid = pid;
     }
 

@@ -5,31 +5,23 @@ import java.util.List;
 
 public class Node<T> {
 
-    private int id;
-    /**
-     * 根节点pId为0
-     */
-    private int pId = 0;
+    private long id;
+    /** 根节点pId为0 */
+    private long pId = 0;
 
     private String name;
 
     private T item;
 
-    /**
-     * 是否展开
-     */
+    /** 是否展开 */
     private boolean isExpand = false;
 
     private int icon;
 
-    /**
-     * 下一级的子Node
-     */
+    /** 下一级的子Node */
     private List<Node<T>> children = new ArrayList<>();
 
-    /**
-     * 父Node
-     */
+    /** 父Node */
     private Node parent;
 
     private int resId;
@@ -42,19 +34,19 @@ public class Node<T> {
         this.icon = icon;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getpId() {
+    public long getpId() {
         return pId;
     }
 
-    public void setpId(int pId) {
+    public void setpId(long pId) {
         this.pId = pId;
     }
 
@@ -135,5 +127,39 @@ public class Node<T> {
      */
     public void setExpand(boolean isExpand) {
         this.isExpand = isExpand;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Node<?> node = (Node<?>) o;
+
+        if (id != node.id) return false;
+        if (pId != node.pId) return false;
+        if (isExpand != node.isExpand) return false;
+        if (icon != node.icon) return false;
+        if (resId != node.resId) return false;
+        if (name != null ? !name.equals(node.name) : node.name != null) return false;
+        if (item != null ? !item.equals(node.item) : node.item != null) return false;
+        if (children != null ? !children.equals(node.children) : node.children != null)
+            return false;
+        return parent != null ? parent.equals(node.parent) : node.parent == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (pId ^ (pId >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (item != null ? item.hashCode() : 0);
+        result = 31 * result + (isExpand ? 1 : 0);
+        result = 31 * result + icon;
+        result = 31 * result + (children != null ? children.hashCode() : 0);
+        result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + resId;
+        return result;
     }
 }

@@ -28,9 +28,9 @@ public class TreeAdapter<T extends RvTree> extends RecyclerView.Adapter<TreeAdap
         mContext = context;
     }
 
-    public TreeAdapter(Context context, List<T> datas) {
+    public TreeAdapter(Context context, List<T> data) {
         mContext = context;
-        setNodes(datas);
+        setNodes(data);
     }
 
     public void setListener(TreeItemClickListener mListener) {
@@ -61,8 +61,8 @@ public class TreeAdapter<T extends RvTree> extends RecyclerView.Adapter<TreeAdap
     /**
      * 需要传入数据才会刷新treeview，默认所有节点都会折叠，只保留根节点
      */
-    public void setNodes(List<T> datas) {
-        List<Node<T>> allNodes = TreeHelper.getSortedNodes(datas, 0);
+    public void setNodes(List<T> data) {
+        List<Node<T>> allNodes = TreeHelper.getSortedNode(data, 0);
         mNodes = TreeHelper.<T>filterVisibleNode(allNodes);
         notifyDataSetChanged();
     }
@@ -72,11 +72,11 @@ public class TreeAdapter<T extends RvTree> extends RecyclerView.Adapter<TreeAdap
      * 注意执行该方法是强制将数据挂在指定节点下
      * 如子节点的实际父节点并非指定节点，则在下一次调用{@link #setNodes(List)}时会重新调整
      * @param index 将数据添加到该下标的节点处
-     * @param datas 要添加的数据
+     * @param data 要添加的数据
      */
-    public void addChildrenByIndex(int index, List<T> datas) {
+    public void addChildrenByIndex(int index, List<T> data) {
         Node<T> parent = mNodes.get(index);
-        List<Node<T>> childNodes = TreeHelper.getSortedNodes(datas, 0);
+        List<Node<T>> childNodes = TreeHelper.getSortedNode(data, 0);
         List<Node<T>> children = parent.getChildren();
         parent.setExpand(true);
         for (Node<T> node : childNodes) {
@@ -94,12 +94,12 @@ public class TreeAdapter<T extends RvTree> extends RecyclerView.Adapter<TreeAdap
      * 注意执行该方法是强制将数据挂在指定节点下
      * 如子节点的实际父节点并非指定节点，则在下一次调用{@link #setNodes(List)}时会重新调整
      * @param id 作为父节点的id
-     * @param datas 要添加的数据
+     * @param data 要添加的数据
      */
-    public void addChildrenById(int id, List<T> datas) {
+    public void addChildrenById(int id, List<T> data) {
         int index = findNode(id);
         if (index != -1) {
-            addChildrenByIndex(index, datas);
+            addChildrenByIndex(index, data);
         }
     }
 
